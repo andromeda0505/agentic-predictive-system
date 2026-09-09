@@ -1,0 +1,112 @@
+{
+  "sample_handling": [
+    "quantify missingness",
+    "compare missingness by relevant groups",
+    "choose model-compatible imputation",
+    "consider missing indicators when meaningful"
+  ],
+  "missing_data_strategy": [
+    "quantify missingness",
+    "compare missingness by relevant groups",
+    "choose model-compatible imputation",
+    "consider missing indicators when meaningful"
+  ],
+  "validation": {
+    "strategy": "temporal_holdout",
+    "cutoff_defined": false,
+    "cutoff": null,
+    "rationale": "Temporal validation preferred for future construction starts"
+  },
+  "baselines": [
+    {
+      "name": "naive_historical_mean",
+      "purpose": "Simple baseline for construction_cycle_days"
+    },
+    {
+      "name": "naive_historical_median",
+      "purpose": "Simple baseline for construction_cycle_days"
+    },
+    {
+      "name": "simple_interpretable_regression",
+      "purpose": "Interpretable baseline for construction_cycle_days"
+    }
+  ],
+  "candidate_models": [
+    {
+      "name": "linear_regression",
+      "family": "linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Standard linear regression for continuous target"
+    },
+    {
+      "name": "regularized_linear_regression",
+      "family": "regularized_linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Regularized linear regression for continuous target"
+    },
+    {
+      "name": "random_forest_regression",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Random forest for continuous target"
+    },
+    {
+      "name": "gradient_boosting_regression",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Gradient boosting for continuous target"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "mae",
+      "role": "primary",
+      "rationale": "Mean absolute error for regression"
+    },
+    {
+      "name": "mse",
+      "role": "secondary",
+      "rationale": "Mean squared error for regression"
+    },
+    {
+      "name": "rmse",
+      "role": "secondary",
+      "rationale": "Root mean squared error for regression"
+    },
+    {
+      "name": "r_squared",
+      "role": "secondary",
+      "rationale": "R-squared for regression"
+    }
+  ],
+  "diagnostics": [
+    "residual_plots",
+    "heteroskedasticity_assessment",
+    "temporal_stability",
+    "subgroup_error_analysis",
+    "calibration_of_prediction_intervals",
+    "sensitivity_to_influential_observations",
+    "comparison_across_temporal_splits"
+  ],
+  "interactions_to_investigate": [
+    "sqft_product_line",
+    "community_plan_name",
+    "metro_product_line",
+    "lot_size_sqft_lot_type",
+    "sqft_community",
+    "basement_type_product_line"
+  ],
+  "censoring": {
+    "right_censoring_present": true,
+    "completed_case_regression_candidate": true,
+    "survival_analysis_candidate": true,
+    "note": "Deterministic evidence shows unfinished homes may have missing construction_end_date"
+  },
+  "unresolved_questions": [
+    "How to handle right-censored observations in the model?",
+    "What is the optimal temporal holdout cutoff?",
+    "How to quantify missingness in construction_end_date?",
+    "What is the best imputation strategy for missing construction_end_date?"
+  ],
+  "handoff": "This protocol is ready for implementation with the following steps: 1. Quantify missingness in construction_end_date. 2. Compare missingness by relevant groups. 3. Choose model-compatible imputation for missing construction_end_date. 4. Implement temporal holdout validation. 5. Evaluate candidate models against baselines."
+}

@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "failures": [],
+  "interpretation": "PASS means every declared branch produced its output artifact and the join node also completed. This verifies LangGraph-level fan-out/fan-in execution. It does not prove that Ollama performed simultaneous GPU inference."
+}

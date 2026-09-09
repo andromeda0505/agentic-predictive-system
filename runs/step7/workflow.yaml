@@ -1,0 +1,147 @@
+name: predictive_modeling
+version: "1.0"
+
+inputs:
+
+  task:
+    inputs/task.md
+
+  dataset:
+    inputs/data.csv
+
+  feature_policy:
+    inputs/feature_policy.yaml
+
+
+grounding_rules:
+
+  - >
+    The ORIGINAL TASK defines the prediction objective and target.
+    Never replace the target unless the task explicitly requests it.
+
+  - >
+    AUTHORITATIVE DATASET FACTS are produced deterministically by Python
+    from the historical dataset and outrank agent-generated claims.
+
+  - >
+    The PREDICTION-TIME FEATURE CONTRACT controls whether historical
+    fields may be used as production predictors.
+
+  - >
+    Historical column existence does not imply prediction-time availability.
+
+  - >
+    Upstream agent artifacts are advisory. They are not factual evidence.
+
+  - >
+    Never invent performance thresholds, industry benchmarks,
+    empirical findings, or external evidence.
+
+  - >
+    No predictive model has been fitted at this stage.
+
+
+nodes:
+
+  planner:
+
+    skill:
+      skills/planner.md
+
+    output:
+      planner
+
+    output_schema:
+      planner_v1
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+    mandatory_tools: []
+
+    tools: []
+
+    assignment: >
+      Create a rigorous predictive-modeling plan.
+      Do not fit models.
+      Clearly distinguish facts, recommendations,
+      assumptions, and unresolved questions.
+
+
+  statistician:
+
+    skill:
+      skills/statistician.md
+
+    output:
+      statistician
+
+    output_schema:
+      statistician_v1
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: artifacts.planner.structured_data
+        title: PLANNER STRUCTURED ARTIFACT
+
+    mandatory_tools:
+
+      - dataset_overview
+      - target_summary
+      - duplicate_summary
+      - list_candidate_predictors
+      - allowed_predictor_missingness
+      - check_time_split_feasibility
+      - censoring_summary
+
+    tools:
+
+      - inspect_feature
+      - analyze_numeric_candidate
+      - analyze_categorical_candidate
+
+    assignment: >
+      Create a rigorous statistical and machine-learning analysis protocol.
+
+      A mandatory evidence pack has already been computed for you
+      by deterministic Python tools.
+
+      Treat mandatory tool results as authoritative evidence.
+
+      Do not invent columns, sample counts, date ranges,
+      missingness, performance, thresholds, or benchmarks.
+
+      Treat the Planner artifact as advisory.
+
+    
+
+
+edges:
+
+  - from: planner
+    to: statistician
+
+
+start:
+  planner
+  
+
+end:
+  statistician

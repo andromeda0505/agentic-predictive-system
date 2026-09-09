@@ -1,0 +1,111 @@
+name: predictive_modeling
+version: "1.0"
+
+inputs:
+
+  task:
+    inputs/task.md
+
+  dataset:
+    inputs/data.csv
+
+  feature_policy:
+    inputs/feature_policy.yaml
+
+
+grounding_rules:
+
+  - >
+    The ORIGINAL TASK defines the prediction objective and target.
+    Never replace the target unless the task explicitly requests it.
+
+  - >
+    AUTHORITATIVE DATASET FACTS are produced deterministically by Python
+    from the historical dataset and outrank agent-generated claims.
+
+  - >
+    The PREDICTION-TIME FEATURE CONTRACT controls whether historical
+    fields may be used as production predictors.
+
+  - >
+    Historical column existence does not imply prediction-time availability.
+
+  - >
+    Upstream agent artifacts are advisory. They are not factual evidence.
+
+  - >
+    Never invent performance thresholds, industry benchmarks,
+    empirical findings, or external evidence.
+
+  - >
+    No predictive model has been fitted at this stage.
+
+
+nodes:
+
+  planner:
+
+    skill:
+      skills/planner.md
+
+    output:
+      planner
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+    assignment: >
+      Create a rigorous predictive-modeling plan.
+      Do not fit models.
+      Clearly distinguish facts, recommendations,
+      assumptions, and unresolved questions.
+
+
+  statistician:
+
+    skill:
+      skills/statistician.md
+
+    output:
+      statistician
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: artifacts.planner.content
+        title: PLANNER ARTIFACT
+
+    assignment: >
+      Create the statistical and machine-learning analysis protocol.
+      Treat the Planner artifact as advisory rather than authoritative.
+      Reject recommendations that conflict with the task,
+      dataset facts, or feature contract.
+
+
+edges:
+
+  - from: planner
+    to: statistician
+
+
+start:
+  planner
+
+end:
+  statistician

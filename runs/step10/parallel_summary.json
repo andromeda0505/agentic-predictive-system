@@ -1,0 +1,36 @@
+{
+  "parallel_group_count": 1,
+  "groups": [
+    {
+      "source": "planner",
+      "branches": [
+        {
+          "node": "researcher",
+          "output_artifact": "researcher",
+          "artifact_present": true,
+          "structured": false
+        },
+        {
+          "node": "statistician",
+          "output_artifact": "statistician",
+          "artifact_present": true,
+          "structured": true
+        }
+      ],
+      "join": "critic",
+      "join_output_artifact": "critic",
+      "join_artifact_present": true,
+      "all_branches_completed": true,
+      "join_completed_after_required_artifacts_exist": true
+    }
+  ],
+  "final_artifacts": [
+    "critic",
+    "planner",
+    "researcher",
+    "statistician"
+  ],
+  "tool_execution_counts_by_node": {
+    "statistician": 7
+  }
+}

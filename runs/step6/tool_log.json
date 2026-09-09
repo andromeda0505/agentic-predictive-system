@@ -1,0 +1,51 @@
+[
+  {
+    "node": "statistician",
+    "tool": "dataset_overview",
+    "arguments": {},
+    "result": "{\n  \"row_count\": 4684,\n  \"column_count\": 30,\n  \"target_specification\": {\n    \"name\": \"construction_cycle_days\",\n    \"problem_type\": \"regression\",\n    \"prediction_time\": \"construction_start\",\n    \"physical_column_present\": false,\n    \"derivation\": \"construction_end_date - construction_start_date\",\n    \"derivable_from_existing_columns\": true,\n    \"rows_with_both_target_dates\": 4105,\n    \"invalid_negative_duration_count\": 7,\n    \"valid_derived_target_count\": 4098,\n    \"rows_without_usable_target\": 586,\n    \"derived_target_min\": 65,\n    \"derived_target_max\": 622,\n    \"derived_target_mean\": 187.46,\n    \"derived_target_median\": 178.0\n  },\n  \"construction_status_counts\": {\n    \"Complete\": 4105,\n    \"In Progress\": 579\n  },\n  \"exact_duplicate_row_count\": 25,\n  \"repeated_home_id_group_count\": 25\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "target_summary",
+    "arguments": {},
+    "result": "{\n  \"valid_target_rows\": 4098,\n  \"minimum_days\": 65.0,\n  \"q10\": 117.0,\n  \"q25\": 140.0,\n  \"median\": 178.0,\n  \"mean\": 187.4597364568082,\n  \"q75\": 224.0,\n  \"q90\": 272.0,\n  \"maximum_days\": 622.0,\n  \"standard_deviation\": 62.60421890480182\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "duplicate_summary",
+    "arguments": {},
+    "result": "{\n  \"total_rows\": 4684,\n  \"unique_home_ids\": 4659,\n  \"repeated_home_id_groups\": 25,\n  \"rows_in_repeated_groups\": 50,\n  \"maximum_rows_per_home_id\": 2,\n  \"exact_duplicate_rows\": 25\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "list_candidate_predictors",
+    "arguments": {},
+    "result": "{\n  \"allow\": [\n    \"basement_type\",\n    \"baths\",\n    \"beds\",\n    \"community\",\n    \"garage_size\",\n    \"half_baths\",\n    \"is_spec_home\",\n    \"lot_number\",\n    \"lot_size_sqft\",\n    \"lot_type\",\n    \"metro\",\n    \"permit_application_date\",\n    \"permit_authority\",\n    \"permit_issue_date\",\n    \"plan_code\",\n    \"plan_name\",\n    \"product_line\",\n    \"sqft\",\n    \"stories\"\n  ],\n  \"verify\": [\n    \"sale_date\",\n    \"selected_options_value\",\n    \"site_manager\"\n  ],\n  \"block\": [\n    \"change_order_count\",\n    \"construction_end_date\",\n    \"final_inspection_date\",\n    \"trade_invoice_total\"\n  ],\n  \"identifier\": [\n    \"home_id\"\n  ],\n  \"reference_time\": [\n    \"construction_start_date\"\n  ],\n  \"training_only\": [\n    \"construction_status\",\n    \"data_source\"\n  ]\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "allowed_predictor_missingness",
+    "arguments": {},
+    "result": "{\n  \"community\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"metro\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"permit_authority\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"lot_number\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"plan_name\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"plan_code\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"product_line\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"beds\": {\n    \"missing_count\": 141,\n    \"missing_percent\": 3.01,\n    \"nonmissing_count\": 4543\n  },\n  \"baths\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"half_baths\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"sqft\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"stories\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"garage_size\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"basement_type\": {\n    \"missing_count\": 1654,\n    \"missing_percent\": 35.312,\n    \"nonmissing_count\": 3030\n  },\n  \"lot_type\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"lot_size_sqft\": {\n    \"missing_count\": 97,\n    \"missing_percent\": 2.071,\n    \"nonmissing_count\": 4587\n  },\n  \"is_spec_home\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"permit_application_date\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  },\n  \"permit_issue_date\": {\n    \"missing_count\": 0,\n    \"missing_percent\": 0.0,\n    \"nonmissing_count\": 4684\n  }\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "check_time_split_feasibility",
+    "arguments": {},
+    "result": "{\n  \"valid_target_rows_with_start_date\": 4098,\n  \"minimum_start_date\": \"2021-01-04\",\n  \"maximum_start_date\": \"2025-05-20\",\n  \"rows_by_start_year\": {\n    \"2021\": 828,\n    \"2022\": 981,\n    \"2023\": 1045,\n    \"2024\": 1088,\n    \"2025\": 156\n  },\n  \"distinct_start_years\": 5,\n  \"temporal_holdout_feasible\": true,\n  \"interpretation_guardrail\": \"Temporal holdout feasibility does not itself determine the optimal training/validation cutoff.\"\n}",
+    "success": true
+  },
+  {
+    "node": "statistician",
+    "tool": "censoring_summary",
+    "arguments": {},
+    "result": "{\n  \"construction_status_counts\": {\n    \"Complete\": 4105,\n    \"In Progress\": 579\n  },\n  \"end_date_missingness_by_status\": {\n    \"Complete\": {\n      \"rows\": 4105,\n      \"missing_end_dates\": 0\n    },\n    \"In Progress\": {\n      \"rows\": 579,\n      \"missing_end_dates\": 579\n    }\n  },\n  \"interpretation_guardrail\": \"In-progress observations without construction_end_date should not automatically be treated as ordinary randomly missing regression labels. They may represent right-censored duration observations.\"\n}",
+    "success": true
+  }
+]

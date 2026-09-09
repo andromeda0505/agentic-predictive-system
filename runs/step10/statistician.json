@@ -1,0 +1,97 @@
+{
+  "sample_handling": [
+    "quantify missingness among prediction-time predictors"
+  ],
+  "missing_data_strategy": [
+    "quantify missingness among prediction-time predictors",
+    "compare missingness by relevant groups",
+    "choose model-compatible predictor imputation",
+    "consider missing indicators when meaningful",
+    "test sensitivity to missing-data handling"
+  ],
+  "validation": {
+    "strategy": "temporal_holdout",
+    "cutoff_defined": false,
+    "cutoff": null,
+    "rationale": "Temporal validation preferred as deployment predicts future construction starts"
+  },
+  "baselines": [
+    {
+      "name": "naive_historical_mean",
+      "purpose": "Simple baseline for comparison"
+    },
+    {
+      "name": "naive_historical_median",
+      "purpose": "Simple baseline for comparison"
+    },
+    {
+      "name": "simple_interpretable_regression",
+      "purpose": "Baseline model for comparison"
+    }
+  ],
+  "candidate_models": [
+    {
+      "name": "linear_regression",
+      "family": "linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Standard linear model for regression"
+    },
+    {
+      "name": "regularized_linear_regression",
+      "family": "linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Regularized linear model for regression"
+    },
+    {
+      "name": "random_forest_regression",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Tree-based model for regression"
+    },
+    {
+      "name": "gradient_boosting_regression",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Gradient boosting model for regression"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "mae",
+      "role": "primary",
+      "rationale": "Common metric for regression tasks"
+    },
+    {
+      "name": "mse",
+      "role": "secondary",
+      "rationale": "Common metric for regression tasks"
+    }
+  ],
+  "diagnostics": [
+    "residual_plots",
+    "heteroskedasticity_assessment",
+    "temporal_stability",
+    "subgroup_error_analysis",
+    "calibration_of_prediction_intervals",
+    "sensitivity_to_influential_observations",
+    "comparison_across_temporal_splits"
+  ],
+  "interactions_to_investigate": [
+    "sqft_product_line",
+    "community_plan_name",
+    "metro_product_line",
+    "lot_size_sqft_lot_type",
+    "sqft_community",
+    "basement_type_product_line"
+  ],
+  "censoring": {
+    "right_censoring_present": true,
+    "completed_case_regression_candidate": true,
+    "survival_analysis_candidate": true,
+    "note": "Unfinished homes have missing construction_end_date, so right-censoring is present"
+  },
+  "unresolved_questions": [
+    "How sensitive are conclusions to alternative censoring-aware handling of unfinished observations?"
+  ],
+  "handoff": "Do not recommend imputation for construction_end_date; treat as right-censored outcome"
+}

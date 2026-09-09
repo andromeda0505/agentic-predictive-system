@@ -1,0 +1,74 @@
+{
+  "sample_handling": [
+    "Check for right-censored observations in the dataset",
+    "Verify temporal coverage of historical data",
+    "Identify incomplete observations with missing outcomes"
+  ],
+  "missing_data_strategy": [
+    "Investigate missingness patterns for all columns",
+    "Determine if missing data is random or systematic",
+    "Assess impact of missing data on model assumptions"
+  ],
+  "validation": {
+    "strategy": "temporal_holdout",
+    "cutoff_defined": false,
+    "cutoff": null,
+    "rationale": "The prediction task involves time-series data where future observations are not available at prediction time. Temporal holdout ensures that the validation set consists of future observations relative to the training set."
+  },
+  "baselines": [
+    {
+      "name": "naive_mean",
+      "purpose": "Provide a baseline for continuous targets using the mean of the historical data"
+    },
+    {
+      "name": "naive_median",
+      "purpose": "Provide a baseline for continuous targets using the median of the historical data"
+    }
+  ],
+  "candidate_models": [
+    {
+      "name": "linear_regression",
+      "family": "regularized_linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Linear regression with regularization (e.g., L1 or L2) is a standard starting point for interpretable models. It can handle linear relationships and regularization to prevent overfitting."
+    },
+    {
+      "name": "random_forest",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Random forests are robust to noise and can capture non-linear relationships. They are a common benchmark for tree-based models."
+    }
+  ],
+  "metrics": [
+    {
+      "name": "mse",
+      "role": "primary",
+      "rationale": "Mean squared error is appropriate for continuous targets and provides a measure of prediction error."
+    },
+    {
+      "name": "r2",
+      "role": "secondary",
+      "rationale": "R-squared measures the proportion of variance explained by the model, which is useful for interpretability."
+    }
+  ],
+  "diagnostics": [
+    "Residual analysis for linearity and homoscedasticity",
+    "Check for multicollinearity among predictors",
+    "Assess model stability across different temporal splits"
+  ],
+  "interactions_to_investigate": [
+    "Interaction between time-based features and economic indicators",
+    "Interaction between project size and market conditions"
+  ],
+  "censoring": {
+    "right_censoring_present": true,
+    "completed_case_regression_candidate": true,
+    "survival_analysis_candidate": true,
+    "note": "Incomplete observations with missing outcomes should be handled as right-censored observations to avoid bias in the model."
+  },
+  "unresolved_questions": [
+    "Do we have sufficient historical data to train a model without right-censoring?",
+    "Are there any time-dependent features that are not yet available at prediction time?"
+  ],
+  "handoff": "The model development process should proceed with the temporal holdout validation strategy, starting with the naive baselines and moving to the candidate models."
+}

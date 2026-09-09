@@ -1,0 +1,396 @@
+name: predictive_modeling
+
+version: "1.2"
+
+
+# ============================================================
+# Workflow inputs
+# ============================================================
+
+inputs:
+
+  task:
+    inputs/task.md
+
+  dataset:
+    inputs/data.csv
+
+  feature_policy:
+    inputs/feature_policy.yaml
+
+
+# ============================================================
+# Global grounding rules
+# ============================================================
+
+grounding_rules:
+
+  - >
+    The ORIGINAL TASK is authoritative and must not be
+    replaced or reinterpreted by an agent.
+
+  - >
+    AUTHORITATIVE DATASET FACTS are deterministic evidence
+    and override conflicting agent claims.
+
+  - >
+    The PREDICTION-TIME FEATURE CONTRACT determines whether
+    fields may be used as production predictors.
+
+  - >
+    Agent artifacts are advisory reasoning products and
+    cannot override authoritative evidence.
+
+  - >
+    Never invent dataset columns, sample sizes, missingness,
+    dates, empirical results, model performance, external
+    benchmarks, or unsupported operational facts.
+
+  - >
+    construction_cycle_days is the authoritative target and
+    the primary problem is regression.
+
+  - >
+    The prediction must be available at construction_start.
+
+  - >
+    Missing construction_end_date for unfinished homes is
+    potential right censoring and must not be treated as
+    ordinary predictor missingness or ordinary imputation.
+
+
+# ============================================================
+# Nodes
+# ============================================================
+
+nodes:
+
+
+  # ==========================================================
+  # PLANNER
+  # ==========================================================
+
+  planner:
+
+    skill: skills/planner.md
+
+    output: planner
+
+    output_schema: planner_v1
+
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: revision_feedback
+        title: CRITIC REVISION FEEDBACK
+
+
+    assignment: >
+      Produce the predictive-modeling plan using the original
+      task, authoritative dataset facts, and prediction-time
+      feature contract.
+
+      The target is construction_cycle_days and the problem is
+      regression at construction_start.
+
+      If CRITIC REVISION FEEDBACK is non-empty, this is a
+      revision pass.
+
+      Correct every relevant criticism before returning the
+      new plan.
+
+      Do not repeat claims that the Critic identified as
+      invalid.
+
+      Missing construction_end_date for unfinished homes must
+      be treated as potential right censoring rather than an
+      ordinary predictor-imputation problem.
+
+
+  # ==========================================================
+  # RESEARCHER
+  # ==========================================================
+
+  researcher:
+
+    skill: skills/researcher.md
+
+    output: researcher
+
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: artifacts.planner.structured_data
+        title: PLANNER STRUCTURED ARTIFACT
+
+      - path: revision_feedback
+        title: CRITIC OR LOCAL VALIDATION FEEDBACK
+
+
+    assignment: >
+      Independently review the predictive-modeling problem
+      and latest Planner artifact.
+
+      Focus on evidence gaps, business-process assumptions,
+      prediction-time availability, leakage risks,
+      operational uncertainty, data-quality concerns, and
+      deployment risks.
+
+      Do not duplicate the Statistician's job.
+
+      Do not design detailed statistical estimators.
+
+      Do not invent external facts, percentages, industry
+      benchmarks, operational effects, or variables.
+
+      If a claim is not established by supplied evidence,
+      label it NEEDS VERIFICATION.
+
+      Produce a grounded advisory memo for the Critic.
+
+
+  # ==========================================================
+  # STATISTICIAN
+  # ==========================================================
+
+  statistician:
+
+    skill: skills/statistician.md
+
+    output: statistician
+
+    output_schema: statistician_v1
+
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: artifacts.planner.structured_data
+        title: PLANNER STRUCTURED ARTIFACT
+
+      - path: revision_feedback
+        title: CRITIC OR LOCAL VALIDATION FEEDBACK
+
+
+    mandatory_tools:
+
+      - dataset_overview
+
+      - target_summary
+
+      - duplicate_summary
+
+      - list_candidate_predictors
+
+      - allowed_predictor_missingness
+
+      - check_time_split_feasibility
+
+      - censoring_summary
+
+
+    assignment: >
+      Produce statistical modeling recommendations using the
+      authoritative evidence and latest Planner artifact.
+
+      The target is construction_cycle_days, the task is
+      regression, and prediction occurs at construction_start.
+
+      CRITICAL CENSORING RULE:
+
+      construction_end_date is part of target construction,
+      not an ordinary prediction-time predictor.
+
+      The deterministic evidence shows that unfinished
+      observations with missing construction_end_date may be
+      right-censored.
+
+      Therefore NEVER recommend ordinary imputation of
+      construction_end_date.
+
+      NEVER ask for an imputation strategy for
+      construction_end_date.
+
+      NEVER place a construction_end_date imputation question
+      inside unresolved_questions.
+
+      NEVER recommend construction_end_date imputation inside
+      handoff, sample_handling, missing_data_strategy, or
+      censoring.
+
+      If discussing imputation, explicitly say it applies only
+      to prediction-time predictors with ordinary missingness,
+      such as allowed predictors where deterministic evidence
+      shows missing values.
+
+      Treat outcome censoring separately.
+
+      Suitable unresolved censoring questions include:
+
+      - How should completed-case regression be compared with
+        a censoring-aware survival-analysis candidate?
+
+      - How sensitive are conclusions to excluding unfinished
+        observations?
+
+      - What assumptions are required for each censoring
+        strategy?
+
+      Suitable validation questions include:
+
+      - What deterministic rule should be used to select the
+        temporal holdout cutoff?
+
+      If CRITIC OR LOCAL VALIDATION FEEDBACK is non-empty,
+      correct every relevant error before returning the new
+      output.
+
+      If local validation specifically rejected
+      construction_end_date imputation, remove that
+      recommendation completely rather than paraphrasing it.
+
+      Do not invent empirical findings, model performance,
+      dates, cutoffs, or variables.
+
+
+  # ==========================================================
+  # CRITIC
+  # ==========================================================
+
+  critic:
+
+    skill: skills/critic.md
+
+    output: critic
+
+    output_schema: critic_v1
+
+
+    context:
+
+      - path: task
+        title: ORIGINAL TASK
+
+      - path: dataset_facts
+        title: AUTHORITATIVE DATASET FACTS
+
+      - path: feature_policy
+        title: PREDICTION-TIME FEATURE CONTRACT
+
+      - path: artifacts.planner.structured_data
+        title: PLANNER STRUCTURED ARTIFACT
+
+      - path: artifacts.researcher.content
+        title: RESEARCHER ADVISORY MEMO
+
+      - path: artifacts.statistician.structured_data
+        title: STATISTICIAN STRUCTURED ARTIFACT
+
+      - path: tool_log
+        title: DETERMINISTIC TOOL EVIDENCE
+
+
+    assignment: >
+      Audit the Planner and Statistician against the original
+      task, authoritative dataset facts, prediction-time
+      feature contract, and deterministic tool evidence.
+
+      Also read the RESEARCHER ADVISORY MEMO as an independent
+      source of questions and risk flags.
+
+      The Researcher is advisory only and cannot override
+      authoritative evidence.
+
+      Missing construction_end_date for unfinished homes is
+      potential right censoring. Reject any recommendation
+      that treats construction_end_date as an ordinary value
+      to impute.
+
+      Ordinary predictor missingness and outcome censoring
+      must remain conceptually separate.
+
+      If the Researcher identifies a legitimate problem in
+      Planner or Statistician, attribute the issue to the
+      upstream artifact containing the problematic
+      recommendation.
+
+      Return pass only when upstream artifacts are materially
+      consistent with authoritative evidence.
+
+
+    route_on: artifacts.critic.structured_data.recommended_next_action
+
+
+    # --------------------------------------------------------
+    # All revisions physically route through Planner because
+    # Planner is the parallel fan-out source.
+    # --------------------------------------------------------
+
+    routes:
+
+      accept: __end__
+
+      revise_planner: planner
+
+      revise_statistician: planner
+
+      revise_both: planner
+
+
+# ============================================================
+# Ordinary sequential edges
+# ============================================================
+
+edges: []
+
+
+# ============================================================
+# Parallel fan-out / fan-in
+# ============================================================
+
+parallel_groups:
+
+  - from: planner
+
+    branches:
+
+      - researcher
+
+      - statistician
+
+    join: critic
+
+
+# ============================================================
+# Workflow boundaries
+# ============================================================
+
+start: planner
+
+end: critic

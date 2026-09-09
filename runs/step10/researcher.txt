@@ -1,0 +1,41 @@
+EVIDENCE CHECK
+
+ESTABLISHED: The authoritative target is construction_cycle_days.
+ESTABLISHED: The problem type is regression.
+ESTABLISHED: Prediction occurs at construction_start.
+ESTABLISHED: There are 4098 valid derived target observations.
+ESTABLISHED: There are 7 invalid negative target durations.
+ESTABLISHED: There are 4105 Complete observations and 579 In Progress observations.
+ESTABLISHED: 579 In Progress observations have missing construction_end_date and may represent right-censored outcomes.
+
+PREDICTION-TIME RISKS
+
+ESTABLISHED: construction_end_date and other blocked future fields must not be used as prediction-time predictors.
+NEEDS VERIFICATION: Confirm production-time availability for fields currently marked verify: sale_date, selected_options_value, site_manager.
+ESTABLISHED: Historical permit data contain 0 observed permit_issue_date values after construction_start_date.
+NEEDS VERIFICATION: Confirm that the historical permit-timing relationship remains valid in the future production process.
+
+BUSINESS-PROCESS QUESTIONS
+
+NEEDS VERIFICATION: Confirm when each verify-status field becomes final relative to construction_start.
+NEEDS VERIFICATION: Determine whether relevant operational processes change over time in ways that could affect transportability.
+NEEDS VERIFICATION: Determine whether additional operational information exists and is available at prediction time before proposing it as a feature.
+
+DATA AND DEPLOYMENT RISKS
+
+ESTABLISHED: There are 25 exact duplicate rows requiring deterministic handling.
+ESTABLISHED: Missing construction_end_date among unfinished homes is an outcome-censoring issue rather than ordinary predictor missingness.
+NEEDS VERIFICATION: Evaluate sensitivity of completed-case regression to exclusion of unfinished observations.
+NEEDS VERIFICATION: Compare a censoring-aware survival-analysis candidate with completed-case regression.
+
+PLANNER REVIEW
+
+ESTABLISHED: The Planner should retain construction_cycle_days as the regression target.
+ESTABLISHED: Prediction-time feature decisions must follow the authoritative feature contract.
+NEEDS VERIFICATION: The temporal holdout cutoff should be selected by a deterministic validation procedure rather than asserted without evidence.
+
+RECOMMENDATIONS FOR THE CRITIC
+
+ESTABLISHED: Audit target definition, leakage control, regression metrics, temporal validation, and censoring treatment against authoritative evidence.
+NEEDS VERIFICATION: Require business-process confirmation before verify-status fields become production predictors.
+NEEDS VERIFICATION: Require censoring-aware comparison before deciding how unfinished observations should contribute to model development.
