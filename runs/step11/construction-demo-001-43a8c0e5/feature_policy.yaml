@@ -1,0 +1,166 @@
+prediction_time: construction_start
+
+features:
+
+  home_id:
+    decision: identifier
+    reason: >
+      Entity identifier. May be used for joins, duplicate detection,
+      grouping, and auditing, but not as a predictive feature.
+
+  community:
+    decision: allow
+    reason: >
+      Project location attribute expected to be established by construction start.
+
+  metro:
+    decision: allow
+    reason: >
+      Project location attribute expected to be established by construction start.
+
+  permit_authority:
+    decision: allow
+    reason: >
+      Permit jurisdiction should be established before construction begins.
+
+  lot_number:
+    decision: allow
+    reason: >
+      Lot assignment exists before construction starts.
+
+  plan_name:
+    decision: allow
+    reason: >
+      Building plan should be established before construction starts.
+
+  plan_code:
+    decision: allow
+    reason: >
+      Building plan code should be established before construction starts.
+
+  product_line:
+    decision: allow
+    reason: >
+      Product type should be established before construction starts.
+
+  beds:
+    decision: allow
+    reason: >
+      Planned structural attribute available before construction begins.
+
+  baths:
+    decision: allow
+    reason: >
+      Planned structural attribute available before construction begins.
+
+  half_baths:
+    decision: allow
+    reason: >
+      Planned structural attribute available before construction begins.
+
+  sqft:
+    decision: allow
+    reason: >
+      Planned house size should be available before construction begins.
+
+  stories:
+    decision: allow
+    reason: >
+      Planned structural attribute available before construction begins.
+
+  garage_size:
+    decision: allow
+    reason: >
+      Planned structural attribute available before construction begins.
+
+  basement_type:
+    decision: allow
+    reason: >
+      Planned structural attribute expected to be determined before construction.
+
+  lot_type:
+    decision: allow
+    reason: >
+      Lot characteristic exists before construction starts.
+
+  lot_size_sqft:
+    decision: allow
+    reason: >
+      Lot characteristic exists before construction starts.
+
+  is_spec_home:
+    decision: allow
+    reason: >
+      Project type should be known when construction begins.
+
+  selected_options_value:
+    decision: verify
+    reason: >
+      May be known before construction starts, but could also change during
+      construction. Do not use until the business process confirms the value
+      is frozen at prediction time.
+
+  site_manager:
+    decision: verify
+    reason: >
+      May be assigned before or at construction start, but assignment timing
+      and possible reassignment should be confirmed.
+
+  sale_date:
+    decision: verify
+    reason: >
+      Some homes may be sold before construction and others after construction
+      begins. Availability at prediction time must be verified.
+
+  permit_application_date:
+    decision: allow
+    reason: >
+      Permit application is expected to precede construction start.
+
+  permit_issue_date:
+    decision: allow
+    reason: >
+      Historical deterministic checks show no permit issue dates occurring
+      after construction start in this dataset.
+
+  construction_start_date:
+    decision: reference_time
+    reason: >
+      This is the prediction timestamp itself. Calendar and seasonality
+      features may be derived from it.
+
+  construction_end_date:
+    decision: block
+    reason: >
+      Future outcome information. Used to derive historical labels only.
+      Never available as a predictor at construction start.
+
+  final_inspection_date:
+    decision: block
+    reason: >
+      Future outcome information occurring after construction begins.
+
+  change_order_count:
+    decision: block
+    reason: >
+      Historical total reflects events occurring during construction.
+      Do not use unless a separate variable explicitly represents the count
+      known at construction start.
+
+  trade_invoice_total:
+    decision: block
+    reason: >
+      Historical total accumulates from construction activity.
+      Do not use unless a separate pre-construction estimate is documented.
+
+  data_source:
+    decision: training_only
+    reason: >
+      Metadata field. Current dataset contains only one observed value,
+      so it carries no predictive variation here.
+
+  construction_status:
+    decision: training_only
+    reason: >
+      Useful for identifying completed versus in-progress observations,
+      but must not be used as the cycle-time predictor at construction start.

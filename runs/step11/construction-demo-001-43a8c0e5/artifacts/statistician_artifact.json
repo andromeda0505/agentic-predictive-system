@@ -1,0 +1,103 @@
+{
+  "agent": "statistician",
+  "skill_version": "1.2",
+  "content": "{\n  \"sample_handling\": [\n    \"quantify missingness among prediction-time predictors\"\n  ],\n  \"missing_data_strategy\": [\n    \"quantify missingness among prediction-time predictors\",\n    \"compare missingness by relevant groups\",\n    \"choose model-compatible predictor imputation\",\n    \"consider missing indicators when meaningful\",\n    \"test sensitivity to missing-data handling\"\n  ],\n  \"validation\": {\n    \"strategy\": \"temporal_holdout\",\n    \"cutoff_defined\": false,\n    \"cutoff\": null,\n    \"rationale\": \"Temporal validation preferred as deployment predicts future construction starts\"\n  },\n  \"baselines\": [\n    {\n      \"name\": \"naive_historical_mean\",\n      \"purpose\": \"Simple baseline for comparison\"\n    },\n    {\n      \"name\": \"naive_historical_median\",\n      \"purpose\": \"Simple baseline for comparison\"\n    },\n    {\n      \"name\": \"simple_interpretable_regression\",\n      \"purpose\": \"Baseline model for comparison\"\n    }\n  ],\n  \"candidate_models\": [\n    {\n      \"name\": \"linear_regression\",\n      \"family\": \"linear\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Standard linear model for regression\"\n    },\n    {\n      \"name\": \"regularized_linear_regression\",\n      \"family\": \"linear\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Regularized linear model for regression\"\n    },\n    {\n      \"name\": \"random_forest_regression\",\n      \"family\": \"tree\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Tree-based model for regression\"\n    },\n    {\n      \"name\": \"gradient_boosting_regression\",\n      \"family\": \"tree\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Gradient boosting model for regression\"\n    }\n  ],\n  \"metrics\": [\n    {\n      \"name\": \"mae\",\n      \"role\": \"primary\",\n      \"rationale\": \"Common metric for regression tasks\"\n    },\n    {\n      \"name\": \"mse\",\n      \"role\": \"secondary\",\n      \"rationale\": \"Common metric for regression tasks\"\n    }\n  ],\n  \"diagnostics\": [\n    \"residual_plots\",\n    \"heteroskedasticity_assessment\",\n    \"temporal_stability\",\n    \"subgroup_error_analysis\",\n    \"calibration_of_prediction_intervals\",\n    \"sensitivity_to_influential_observations\",\n    \"comparison_across_temporal_splits\"\n  ],\n  \"interactions_to_investigate\": [\n    \"sqft_product_line\",\n    \"community_plan_name\",\n    \"metro_product_line\",\n    \"lot_size_sqft_lot_type\",\n    \"sqft_community\",\n    \"basement_type_product_line\"\n  ],\n  \"censoring\": {\n    \"right_censoring_present\": true,\n    \"completed_case_regression_candidate\": true,\n    \"survival_analysis_candidate\": true,\n    \"note\": \"Unfinished homes have missing construction_end_date, so right-censoring is present\"\n  },\n  \"unresolved_questions\": [\n    \"How sensitive are conclusions to alternative censoring-aware handling of unfinished observations?\"\n  ],\n  \"handoff\": \"Do not recommend imputation for construction_end_date; treat as right-censored outcome\"\n}",
+  "schema_name": "statistician_v1",
+  "structured_data": {
+    "sample_handling": [
+      "quantify missingness among prediction-time predictors"
+    ],
+    "missing_data_strategy": [
+      "quantify missingness among prediction-time predictors",
+      "compare missingness by relevant groups",
+      "choose model-compatible predictor imputation",
+      "consider missing indicators when meaningful",
+      "test sensitivity to missing-data handling"
+    ],
+    "validation": {
+      "strategy": "temporal_holdout",
+      "cutoff_defined": false,
+      "cutoff": null,
+      "rationale": "Temporal validation preferred as deployment predicts future construction starts"
+    },
+    "baselines": [
+      {
+        "name": "naive_historical_mean",
+        "purpose": "Simple baseline for comparison"
+      },
+      {
+        "name": "naive_historical_median",
+        "purpose": "Simple baseline for comparison"
+      },
+      {
+        "name": "simple_interpretable_regression",
+        "purpose": "Baseline model for comparison"
+      }
+    ],
+    "candidate_models": [
+      {
+        "name": "linear_regression",
+        "family": "linear",
+        "status": "requires_empirical_comparison",
+        "rationale": "Standard linear model for regression"
+      },
+      {
+        "name": "regularized_linear_regression",
+        "family": "linear",
+        "status": "requires_empirical_comparison",
+        "rationale": "Regularized linear model for regression"
+      },
+      {
+        "name": "random_forest_regression",
+        "family": "tree",
+        "status": "requires_empirical_comparison",
+        "rationale": "Tree-based model for regression"
+      },
+      {
+        "name": "gradient_boosting_regression",
+        "family": "tree",
+        "status": "requires_empirical_comparison",
+        "rationale": "Gradient boosting model for regression"
+      }
+    ],
+    "metrics": [
+      {
+        "name": "mae",
+        "role": "primary",
+        "rationale": "Common metric for regression tasks"
+      },
+      {
+        "name": "mse",
+        "role": "secondary",
+        "rationale": "Common metric for regression tasks"
+      }
+    ],
+    "diagnostics": [
+      "residual_plots",
+      "heteroskedasticity_assessment",
+      "temporal_stability",
+      "subgroup_error_analysis",
+      "calibration_of_prediction_intervals",
+      "sensitivity_to_influential_observations",
+      "comparison_across_temporal_splits"
+    ],
+    "interactions_to_investigate": [
+      "sqft_product_line",
+      "community_plan_name",
+      "metro_product_line",
+      "lot_size_sqft_lot_type",
+      "sqft_community",
+      "basement_type_product_line"
+    ],
+    "censoring": {
+      "right_censoring_present": true,
+      "completed_case_regression_candidate": true,
+      "survival_analysis_candidate": true,
+      "note": "Unfinished homes have missing construction_end_date, so right-censoring is present"
+    },
+    "unresolved_questions": [
+      "How sensitive are conclusions to alternative censoring-aware handling of unfinished observations?"
+    ],
+    "handoff": "Do not recommend imputation for construction_end_date; treat as right-censored outcome"
+  }
+}

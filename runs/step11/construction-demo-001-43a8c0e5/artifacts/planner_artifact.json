@@ -1,0 +1,79 @@
+{
+  "agent": "planner",
+  "skill_version": "1.1",
+  "content": "{\n  \"target_construction\": \"construction_cycle_days\",\n  \"data_quality_actions\": [\n    \"Check for invalid target durations (construction_cycle_days < 0)\"\n  ],\n  \"feature_engineering\": [\n    \"construction_start_year\",\n    \"construction_start_quarter\",\n    \"construction_start_month\",\n    \"construction_start_day_of_week\",\n    \"construction_start_week\",\n    \"construction_start_season\"\n  ],\n  \"validation\": {\n    \"strategy\": \"temporal_holdout\",\n    \"cutoff_defined\": false,\n    \"cutoff\": null,\n    \"rationale\": \"Temporal validation is appropriate because deployment concerns future construction starts.\"\n  },\n  \"baselines\": [\n    {\n      \"name\": \"historical_mean\",\n      \"purpose\": \"Sensible baseline for continuous cycle-time target\"\n    },\n    {\n      \"name\": \"historical_median\",\n      \"purpose\": \"Sensible baseline for continuous cycle-time target\"\n    }\n  ],\n  \"candidate_models\": [\n    {\n      \"name\": \"ordinary_linear_regression\",\n      \"family\": \"linear\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Ordinary linear regression is a standard baseline for continuous regression tasks.\"\n    },\n    {\n      \"name\": \"regularized_linear_regression\",\n      \"family\": \"linear\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Regularized linear regression can handle overfitting in continuous regression tasks.\"\n    },\n    {\n      \"name\": \"random_forest_regressor\",\n      \"family\": \"tree\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Random forest regressor is a strong baseline for continuous regression tasks.\"\n    },\n    {\n      \"name\": \"gradient_boosting_regressor\",\n      \"family\": \"tree\",\n      \"status\": \"requires_empirical_comparison\",\n      \"rationale\": \"Gradient boosting regressor is a strong baseline for continuous regression tasks.\"\n    }\n  ],\n  \"metrics\": [\n    {\n      \"name\": \"mae\",\n      \"role\": \"primary\",\n      \"rationale\": \"MAE is a robust metric for continuous regression tasks with interpretable error.\"\n    },\n    {\n      \"name\": \"rmse\",\n      \"role\": \"secondary\",\n      \"rationale\": \"RMSE is sensitive to large errors and useful for assessing prediction accuracy.\"\n    }\n  ],\n  \"censoring_consideration\": \"Incomplete homes with missing construction_end_date may represent right-censored construction durations. Completed-case regression is a possible candidate analysis, but excluding unfinished homes may introduce selection concerns. Survival analysis can be considered as a censoring-aware alternative, though the primary task remains continuous regression.\",\n  \"unresolved_questions\": [\n    \"How many homes have missing construction_end_date (right-censored cases)?\"\n  ],\n  \"next_step\": \"Perform temporal holdout validation with cutoff at the latest construction_start_date in the training set.\"\n}",
+  "schema_name": "planner_v1",
+  "structured_data": {
+    "target_construction": "construction_cycle_days",
+    "data_quality_actions": [
+      "Check for invalid target durations (construction_cycle_days < 0)"
+    ],
+    "feature_engineering": [
+      "construction_start_year",
+      "construction_start_quarter",
+      "construction_start_month",
+      "construction_start_day_of_week",
+      "construction_start_week",
+      "construction_start_season"
+    ],
+    "validation": {
+      "strategy": "temporal_holdout",
+      "cutoff_defined": false,
+      "cutoff": null,
+      "rationale": "Temporal validation is appropriate because deployment concerns future construction starts."
+    },
+    "baselines": [
+      {
+        "name": "historical_mean",
+        "purpose": "Sensible baseline for continuous cycle-time target"
+      },
+      {
+        "name": "historical_median",
+        "purpose": "Sensible baseline for continuous cycle-time target"
+      }
+    ],
+    "candidate_models": [
+      {
+        "name": "ordinary_linear_regression",
+        "family": "linear",
+        "status": "requires_empirical_comparison",
+        "rationale": "Ordinary linear regression is a standard baseline for continuous regression tasks."
+      },
+      {
+        "name": "regularized_linear_regression",
+        "family": "linear",
+        "status": "requires_empirical_comparison",
+        "rationale": "Regularized linear regression can handle overfitting in continuous regression tasks."
+      },
+      {
+        "name": "random_forest_regressor",
+        "family": "tree",
+        "status": "requires_empirical_comparison",
+        "rationale": "Random forest regressor is a strong baseline for continuous regression tasks."
+      },
+      {
+        "name": "gradient_boosting_regressor",
+        "family": "tree",
+        "status": "requires_empirical_comparison",
+        "rationale": "Gradient boosting regressor is a strong baseline for continuous regression tasks."
+      }
+    ],
+    "metrics": [
+      {
+        "name": "mae",
+        "role": "primary",
+        "rationale": "MAE is a robust metric for continuous regression tasks with interpretable error."
+      },
+      {
+        "name": "rmse",
+        "role": "secondary",
+        "rationale": "RMSE is sensitive to large errors and useful for assessing prediction accuracy."
+      }
+    ],
+    "censoring_consideration": "Incomplete homes with missing construction_end_date may represent right-censored construction durations. Completed-case regression is a possible candidate analysis, but excluding unfinished homes may introduce selection concerns. Survival analysis can be considered as a censoring-aware alternative, though the primary task remains continuous regression.",
+    "unresolved_questions": [
+      "How many homes have missing construction_end_date (right-censored cases)?"
+    ],
+    "next_step": "Perform temporal holdout validation with cutoff at the latest construction_start_date in the training set."
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "target_construction": "construction_cycle_days",
+  "data_quality_actions": [
+    "Check for invalid target durations (construction_cycle_days < 0)"
+  ],
+  "feature_engineering": [
+    "construction_start_year",
+    "construction_start_quarter",
+    "construction_start_month",
+    "construction_start_day_of_week",
+    "construction_start_week",
+    "construction_start_season"
+  ],
+  "validation": {
+    "strategy": "temporal_holdout",
+    "cutoff_defined": false,
+    "cutoff": null,
+    "rationale": "Temporal validation is appropriate because deployment concerns future construction starts."
+  },
+  "baselines": [
+    {
+      "name": "historical_mean",
+      "purpose": "Sensible baseline for continuous cycle-time target"
+    },
+    {
+      "name": "historical_median",
+      "purpose": "Sensible baseline for continuous cycle-time target"
+    }
+  ],
+  "candidate_models": [
+    {
+      "name": "ordinary_linear_regression",
+      "family": "linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Ordinary linear regression is a standard baseline for continuous regression tasks."
+    },
+    {
+      "name": "regularized_linear_regression",
+      "family": "linear",
+      "status": "requires_empirical_comparison",
+      "rationale": "Regularized linear regression can handle overfitting in continuous regression tasks."
+    },
+    {
+      "name": "random_forest_regressor",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Random forest regressor is a strong baseline for continuous regression tasks."
+    },
+    {
+      "name": "gradient_boosting_regressor",
+      "family": "tree",
+      "status": "requires_empirical_comparison",
+      "rationale": "Gradient boosting regressor is a strong baseline for continuous regression tasks."
+    }
+  ],
+  "metrics": [
+    {
+      "name": "mae",
+      "role": "primary",
+      "rationale": "MAE is a robust metric for continuous regression tasks with interpretable error."
+    },
+    {
+      "name": "rmse",
+      "role": "secondary",
+      "rationale": "RMSE is sensitive to large errors and useful for assessing prediction accuracy."
+    }
+  ],
+  "censoring_consideration": "Incomplete homes with missing construction_end_date may represent right-censored construction durations. Completed-case regression is a possible candidate analysis, but excluding unfinished homes may introduce selection concerns. Survival analysis can be considered as a censoring-aware alternative, though the primary task remains continuous regression.",
+  "unresolved_questions": [
+    "How many homes have missing construction_end_date (right-censored cases)?"
+  ],
+  "next_step": "Perform temporal holdout validation with cutoff at the latest construction_start_date in the training set."
+}

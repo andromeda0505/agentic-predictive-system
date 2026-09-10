@@ -1,0 +1,15 @@
+{
+  "checkpoint_id": "PASTE_CHECKPOINT_ID_HERE",
+  "parent_checkpoint_id": null,
+  "created_at": null,
+  "next_nodes": [],
+  "config": {
+    "configurable": {
+      "thread_id": "construction-demo-001",
+      "checkpoint_id": "PASTE_CHECKPOINT_ID_HERE"
+    }
+  },
+  "parent_config": null,
+  "metadata": null,
+  "values": {}
+}

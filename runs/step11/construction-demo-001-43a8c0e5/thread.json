@@ -1,0 +1,9 @@
+{
+  "thread_id": "construction-demo-001",
+  "checkpoint_database": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\runs\\checkpoints\\predictive_modeling.sqlite",
+  "workflow_name": "predictive_modeling",
+  "workflow_version": "1.2",
+  "workflow_path": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\workflows\\predictive_modeling.yaml",
+  "dataset_path": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\inputs\\data.csv",
+  "feature_policy_path": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\inputs\\feature_policy.yaml"
+}

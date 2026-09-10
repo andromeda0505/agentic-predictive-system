@@ -1,0 +1,117 @@
+{
+  "thread_id": "construction-demo-001",
+  "database_path": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\runs\\checkpoints\\predictive_modeling.sqlite",
+  "checkpoint_count_returned": 5,
+  "history": [
+    {
+      "history_index": 1,
+      "checkpoint_id": "1f1acadd-ed8e-61b2-8003-da8f1556a9a9",
+      "checkpoint_ns": "",
+      "parent_checkpoint_id": "1f1acad9-bc6b-6f06-8002-c882e1c8e54a",
+      "created_at": "2026-09-10T00:23:39.327067+00:00",
+      "status": "complete",
+      "next_nodes": [],
+      "artifact_names": [
+        "critic",
+        "planner",
+        "researcher",
+        "statistician"
+      ],
+      "revision_count": 0,
+      "max_revisions": 2,
+      "revision_limit_reached": false,
+      "metadata": {
+        "source": "loop",
+        "step": 3,
+        "parents": {}
+      }
+    },
+    {
+      "history_index": 2,
+      "checkpoint_id": "1f1acad9-bc6b-6f06-8002-c882e1c8e54a",
+      "checkpoint_ns": "",
+      "parent_checkpoint_id": "1f1aca61-de56-6f37-8001-eb55ddbb03c2",
+      "created_at": "2026-09-10T00:21:46.800862+00:00",
+      "status": "pending",
+      "next_nodes": [
+        "critic"
+      ],
+      "artifact_names": [
+        "planner",
+        "researcher",
+        "statistician"
+      ],
+      "revision_count": 0,
+      "max_revisions": 2,
+      "revision_limit_reached": false,
+      "metadata": {
+        "source": "loop",
+        "step": 2,
+        "parents": {}
+      }
+    },
+    {
+      "history_index": 3,
+      "checkpoint_id": "1f1aca61-de56-6f37-8001-eb55ddbb03c2",
+      "checkpoint_ns": "",
+      "parent_checkpoint_id": "1f1aca5d-3932-6d54-8000-bf412d613df5",
+      "created_at": "2026-09-09T23:28:09.131981+00:00",
+      "status": "pending",
+      "next_nodes": [
+        "researcher",
+        "statistician"
+      ],
+      "artifact_names": [
+        "planner"
+      ],
+      "revision_count": 0,
+      "max_revisions": 2,
+      "revision_limit_reached": false,
+      "metadata": {
+        "source": "loop",
+        "step": 1,
+        "parents": {}
+      }
+    },
+    {
+      "history_index": 4,
+      "checkpoint_id": "1f1aca5d-3932-6d54-8000-bf412d613df5",
+      "checkpoint_ns": "",
+      "parent_checkpoint_id": "1f1aca5d-3930-608c-bfff-fa5fa3844072",
+      "created_at": "2026-09-09T23:26:04.441520+00:00",
+      "status": "pending",
+      "next_nodes": [
+        "planner"
+      ],
+      "artifact_names": [],
+      "revision_count": 0,
+      "max_revisions": 2,
+      "revision_limit_reached": false,
+      "metadata": {
+        "source": "loop",
+        "step": 0,
+        "parents": {}
+      }
+    },
+    {
+      "history_index": 5,
+      "checkpoint_id": "1f1aca5d-3930-608c-bfff-fa5fa3844072",
+      "checkpoint_ns": "",
+      "parent_checkpoint_id": null,
+      "created_at": "2026-09-09T23:26:04.440379+00:00",
+      "status": "pending",
+      "next_nodes": [
+        "__start__"
+      ],
+      "artifact_names": [],
+      "revision_count": null,
+      "max_revisions": null,
+      "revision_limit_reached": null,
+      "metadata": {
+        "source": "input",
+        "step": -1,
+        "parents": {}
+      }
+    }
+  ]
+}

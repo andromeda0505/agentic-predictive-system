@@ -1,0 +1,22 @@
+{
+  "thread_id": "construction-demo-001",
+  "database_path": "G:\\Other computers\\My_PC_2\\OneDrive - University of Calgary\\My PhD-Research\\By Job\\Workstation\\agentic-predictive-system\\runs\\checkpoints\\predictive_modeling.sqlite",
+  "status": "complete",
+  "checkpoint_id": "1f1acadd-ed8e-61b2-8003-da8f1556a9a9",
+  "created_at": "2026-09-10T00:23:39.327067+00:00",
+  "next_nodes": [],
+  "artifact_names": [
+    "critic",
+    "planner",
+    "researcher",
+    "statistician"
+  ],
+  "revision_count": 0,
+  "max_revisions": 2,
+  "revision_limit_reached": false,
+  "metadata": {
+    "source": "loop",
+    "step": 3,
+    "parents": {}
+  }
+}

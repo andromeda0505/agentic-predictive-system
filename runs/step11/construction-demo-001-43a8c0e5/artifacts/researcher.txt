@@ -1,0 +1,28 @@
+Advisory Memo for the Model Development Team  
+
+The following concerns and gaps have been identified in the current model development plan for predicting construction_cycle_days at construction start:  
+
+1. **Evidence gaps**:  
+   - The number of incomplete homes (missing construction_end_date) is not established by the current data. This is critical for determining the model’s handling of right-censored cases.  
+
+2. **Business-process assumptions**:  
+   - The model assumes the construction cycle is defined from construction_start_date to construction_end_date. This definition may not align with the business process, requiring validation.  
+
+3. **Prediction-time availability**:  
+   - Features `selected_options_value` and `site_manager` are marked as "verify" in the prediction-time contract. The current plan does not specify how these features will be confirmed frozen at construction start.  
+
+4. **Leakage risks**:  
+   - The temporal holdout strategy may inadvertently introduce leakage if implementation is not rigorously validated.  
+
+5. **Operational uncertainty**:  
+   - The operational definition of "construction cycle" is undocumented. This uncertainty could cause model predictions to misalign with business expectations.  
+
+6. **Data-quality concerns**:  
+   - The distribution of construction_cycle_days is unknown. This could lead to model instability, particularly if cycle times exhibit significant skew.  
+
+7. **Deployment risks**:  
+   - The model may become obsolete if business processes change over time. Additionally, the model’s accuracy for incomplete homes (missing construction_end_date) is unverified.  
+
+The most critical evidence gap is the number of incomplete homes (missing construction_end_date). This information is essential to decide on the model’s handling of right-censored cases before deployment.  
+
+NEEDS VERIFICATION: The number of incomplete homes (missing construction_end_date) and the business process definition of construction cycle.
